@@ -7,8 +7,7 @@ const Banner = () => {
 
     return (
        <div>
-
-        <h2>This is banner</h2>
+        <img width="100%" height="700" src="https://image.freepik.com/free-photo/white-drone-hovering-bright-blue-sky_158595-3345.jpg" alt="" />
        </div>
     );
 };
