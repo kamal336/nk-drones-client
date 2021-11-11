@@ -19,6 +19,7 @@ const style = {
 };
 
 const PlaceOrder = ({open,handleClose,topdrone}) => {
+  const {title,price} = topdrone;
 
     // const initialInfo = { patientName: user.displayName, email: user.email }
     const [orderInfo,setOrderInfo] = React.useState({});
@@ -29,9 +30,24 @@ const PlaceOrder = ({open,handleClose,topdrone}) => {
         const newOrderInfo = {...orderInfo};
         newOrderInfo[field] = value;
         setOrderInfo(newOrderInfo)
+       
     }
     const handleSubmit = (e) =>{
-          console.log(orderInfo);
+      const appointment = { ...orderInfo }
+          fetch("http://localhost:5000/orders",{
+            method: "POST",
+            headers:{
+              "content-type": "application.json"
+            },
+            body: JSON.stringify(appointment)
+          })
+          .then(res=> res.json())
+          .then(data=>{
+            if(data.insertedId){
+              alert("Place Order Successfully..")
+              handleClose();
+            }
+          })
           e.preventDefault();
     }
   
@@ -46,14 +62,14 @@ const PlaceOrder = ({open,handleClose,topdrone}) => {
         >
           <Box sx={{ ...style,textAlign:'center'}}>
           <Typography id="modal-modal-title" variant="h6" >
-             {topdrone.title}
+             {title}
            </Typography>
            <form onSubmit={handleSubmit}>
            <TextField
            disabled
            sx={{width:"80%",marginTop:3}}
            id="outlined-textarea"
-           defaultValue={topdrone.price}
+           defaultValue={price}
            multiline
           />
            <TextField
@@ -77,7 +93,7 @@ const PlaceOrder = ({open,handleClose,topdrone}) => {
            id="outlined-textarea"
            name="address"
            onBlur={handleOnBlur}
-            placeholder='Address'
+          placeholder='Address'
            multiline
           />
            <TextField

@@ -6,13 +6,21 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
 import PlaceOrder from '../../PlaceOrder/PlaceOrder';
 
-const TopDrone = ({topdrone,open,handleOpen,handleClose}) => {
+const TopDrone = ({topdrone}) => {
     const {title,img,description,price} = topdrone;
+    
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     return (
+        <>
         <Grid item sm={12} md={4}>
           <Card>
             <CardMedia
@@ -33,17 +41,16 @@ const TopDrone = ({topdrone,open,handleOpen,handleClose}) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Link to="/">
                 <Button onClick={handleOpen} size="small">Buy Now</Button>
-                </Link>
             </CardActions>
-            </Card>
             <PlaceOrder 
-             handleClose={handleClose}
-             open={open}
-             topdrone={topdrone}
+            open={open}
+            handleClose={handleClose}
+            topdrone={topdrone}
             />
+            </Card>
         </Grid>
+        </>
     );
 };
 

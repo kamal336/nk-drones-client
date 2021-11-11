@@ -13,13 +13,6 @@ const TopDrones = () => {
 
     const topDrones = drones.slice(0,6);
 
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
-      setOpen(true);
-    };
-    const handleClose = () => {
-      setOpen(false);
-    };
 
     return (
         <Container>
@@ -32,9 +25,6 @@ const TopDrones = () => {
                     <TopDrone 
                     key={topdrone._id}
                     topdrone={topdrone}
-                    open={open}
-                    handleClose={handleClose}
-                    handleOpen={handleOpen}
                     />
                     )
              }
