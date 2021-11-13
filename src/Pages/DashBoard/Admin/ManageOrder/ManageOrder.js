@@ -40,7 +40,25 @@ const ManageOrder = () => {
         .then(data=> setOrders(data))
     },[])
     
-    console.log(orders);
+    const handleDelete = (id) =>{
+      // confirm to delete 
+      const procede = window.confirm("Are sure for delete this ride")
+      if(procede){
+          const url = `https://desolate-stream-72668.herokuapp.com/orders/${id}`
+      fetch(url,{
+          method: 'DELETE'
+      })
+      .then(res=> res.json())
+      .then(data=>{
+          if(data.deletedCount > 0){
+              console.log(data);
+              alert("User deleted")
+              const remainingUser = orders.filter(user=> user._id !== id);
+              setOrders(remainingUser)
+          }
+      })
+      }
+  }
     return (
         <div>
         <Typography variant="h4" sx={{textAlign:'center',color:'primary.main',marginTop:3,marginBottom:3,fontWeight:'bold'}}>
@@ -78,7 +96,7 @@ const ManageOrder = () => {
               <StyledTableCell component="th" scope="row">
                 {row.date}
               </StyledTableCell>
-              <TableCell><Button variant="contained" sx={{background:"red"}}>Delete</Button></TableCell>
+              <TableCell><Button onClick={()=>handleDelete(row._id)} variant="contained" sx={{background:"red"}}>Delete</Button></TableCell>
             </StyledTableRow>
           ))}
         </TableBody>

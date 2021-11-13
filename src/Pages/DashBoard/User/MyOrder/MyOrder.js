@@ -23,6 +23,7 @@ const MyOrder = () => {
         })
     },[user?.email])
 
+    
 
     const handleDelete = (id) =>{
         // confirm to delete 
@@ -35,6 +36,7 @@ const MyOrder = () => {
         .then(res=> res.json())
         .then(data=>{
             if(data.deletedCount > 0){
+                console.log(data);
                 alert("User deleted")
                 const remainingUser = myOrders.filter(user=> user._id !== id);
                 setMyOrders(remainingUser)
