@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import useAuth from './../../../../hooks/useAuth';
-import { Container, Typography } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 
 
 const MyOrder = () => {
@@ -22,21 +22,43 @@ const MyOrder = () => {
             setMyOrders(data);
         })
     },[user?.email])
+
+
+    const handleDelete = (id) =>{
+        // confirm to delete 
+        const procede = window.confirm("Are sure for delete this ride")
+        if(procede){
+            const url = `https://desolate-stream-72668.herokuapp.com/orders/${id}`
+        fetch(url,{
+            method: 'DELETE'
+        })
+        .then(res=> res.json())
+        .then(data=>{
+            if(data.deletedCount > 0){
+                alert("User deleted")
+                const remainingUser = myOrders.filter(user=> user._id !== id);
+                setMyOrders(remainingUser)
+            }
+        })
+        }
+    }
+
     return (
         <Container>
-            <Typography variant="h4" sx={{textAlign:'center',color:'primary.main',marginTop:3,marginBottom:3}}>
-                My Order
+            <Typography variant="h4" sx={{textAlign:'center',color:'primary.main',marginTop:3,marginBottom:3,fontWeight:'bold'}}>
+                My Orders
             </Typography>
             <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
+                <TableHead style={{fontWeight:'bold'}}>
                 <TableRow>
                     <TableCell>SL.</TableCell>
-                    <TableCell align="right">Product Name</TableCell>
-                    <TableCell align="right">Email</TableCell>
-                    <TableCell align="right">Price</TableCell>
-                    <TableCell align="right">Address</TableCell>
-                    <TableCell align="right">Mobile</TableCell>
+                    <TableCell>Product Name</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell>Price</TableCell>
+                    <TableCell>Address</TableCell>
+                    <TableCell>Mobile</TableCell>
+                    <TableCell>Delete Order</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -48,11 +70,12 @@ const MyOrder = () => {
                     <TableCell component="th" scope="row">
                         {index+1}
                     </TableCell>
-                    <TableCell align="right">{row?.productName}</TableCell>
-                    <TableCell align="right">{row?.email}</TableCell>
-                    <TableCell align="right">$ {row?.productPrice}</TableCell>
-                    <TableCell align="right">{row?.address}</TableCell>
-                    <TableCell align="right">{row?.mobile}</TableCell>
+                    <TableCell>{row?.productName}</TableCell>
+                    <TableCell>{row?.email}</TableCell>
+                    <TableCell>$ {row?.productPrice}</TableCell>
+                    <TableCell>{row?.address}</TableCell>
+                    <TableCell>{row?.mobile}</TableCell>
+                    <TableCell><Button onClick={()=>handleDelete(row._id)} variant="contained" sx={{background:"red"}}>Delete</Button></TableCell>
                     </TableRow>
                 ))}
                 </TableBody>

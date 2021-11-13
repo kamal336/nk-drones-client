@@ -85,7 +85,7 @@ const Register = () => {
                        </Link>
                         <Button type="submit" variant="contained">Regiter</Button>
                     </form>
-                    <button onClick={googleLoginUser}>Google</button>
+                    <Button variant="contained" onClick={googleLoginUser} sx={{marginTop:3}}>Google Signin</Button>
                  </Grid>
                  
                  <Grid item sm={12} md={6}>

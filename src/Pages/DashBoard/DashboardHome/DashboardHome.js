@@ -1,10 +1,12 @@
+import { Box } from '@mui/system';
 import React from 'react';
+import  Typography  from '@mui/material/Typography';
 
 const DashboardHome = () => {
     return (
-        <div>
-            <h1>This is Dashboard Home page</h1>
-        </div>
+        <Box>
+            <Typography variant="h3"  sx={{textAlign:'center',color:'primary.main',fontWeight:'bold'}}>This is Our Wonderfull Dashboard</Typography>
+        </Box>
     );
 };
 

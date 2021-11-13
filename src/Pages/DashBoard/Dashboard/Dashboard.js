@@ -6,12 +6,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -57,28 +51,18 @@ function Dashboard(props) {
        <Box style={{display:'flex',flexDirection:'column',textAlign:'center'}}>
        <Link style={{textDecoration:'none'}} to="/home"><Button color="inherit">Home</Button></Link>
       {!admin && <Box style={{display:'flex',flexDirection:'column',textAlign:'center'}}>
-      <Link to={`${url}`}><Button color="inherit">DashBoard Home</Button></Link>
-      <Link to={`${url}/myorder`}><Button color="inherit">My Order</Button></Link>
-      <Link to={`${url}/review`}><Button color="inherit">Review</Button></Link>
-      <Link to={`${url}/payment`}><Button color="inherit">Payment</Button></Link></Box>}
+      <Link to={`${url}`} style={{textDecoration:'none'}}><Button color="inherit">DashBoard Home</Button></Link>
+      <Link to={`${url}/myorder`} style={{textDecoration:'none'}}><Button color="inherit">My Order</Button></Link>
+      <Link to={`${url}/review`} style={{textDecoration:'none'}}><Button color="inherit">Review</Button></Link>
+      <Link to={`${url}/payment`} style={{textDecoration:'none'}}><Button color="inherit">Payment</Button></Link></Box>}
       
       {admin && <Box style={{display:'flex',flexDirection:'column',textAlign:'center'}}>
-      <Link to={`${url}/makeAdmin`}><Button color="inherit">Make Admin</Button></Link>
-      <Link to={`${url}/addProduct`}><Button color="inherit">Add Product</Button></Link>
-      <Link to={`${url}/manageOrder`}><Button color="inherit">Manage Order</Button></Link>
+      <Link to={`${url}/makeAdmin`} style={{textDecoration:'none'}}><Button color="inherit">Make Admin</Button></Link>
+      <Link to={`${url}/addProduct`} style={{textDecoration:'none'}}><Button color="inherit">Add Product</Button></Link>
+      <Link to={`${url}/manageOrder`} style={{textDecoration:'none'}}><Button color="inherit">Manage Order</Button></Link>
       </Box>}
-      <Button onClick={logOutUser} color="inherit">Logout</Button>
+      <Button variant="contained" onClick={logOutUser}>Logout</Button>
        </Box>
-      {/* <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
       <Divider />
 
     </div>
@@ -93,8 +77,9 @@ function Dashboard(props) {
         position="fixed"
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
+          ml: { sm: `${drawerWidth}px` },background:'#3f51b5'
         }}
+        
       >
         <Toolbar>
           <IconButton
@@ -103,6 +88,7 @@ function Dashboard(props) {
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
+            
           >
             <MenuIcon />
           </IconButton>
@@ -113,8 +99,9 @@ function Dashboard(props) {
       </AppBar>
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, }}
         aria-label="mailbox folders"
+        
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
@@ -129,11 +116,13 @@ function Dashboard(props) {
             display: { xs: 'block', sm: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
+          
         >
           {drawer}
         </Drawer>
         <Drawer
           variant="permanent"
+          
           sx={{
             display: { xs: 'none', sm: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },

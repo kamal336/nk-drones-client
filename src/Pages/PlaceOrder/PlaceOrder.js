@@ -20,8 +20,8 @@ const style = {
   pb: 3,
 };
 
-const PlaceOrder = ({open,handleClose,topdrone}) => {
-  const {title,price} = topdrone;
+const PlaceOrder = ({open,handleClose,details}) => {
+  const {title,price} = details;
   const {user} = useAuth();
   const date = new Date();
 

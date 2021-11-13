@@ -1,6 +1,7 @@
 import { Button, Container,Grid,TextField } from '@mui/material';
 import React, { useState } from 'react';
 import  Typography  from '@mui/material/Typography';
+import { swal } from 'sweetalert';
 
 const MakeAdmin = () => {
     const [email,setEmail] = useState('');
@@ -22,7 +23,8 @@ const MakeAdmin = () => {
         })
         .then(res=> res.json())
         .then(data=>{
-            console.log(data);
+            swal("Add Product Successfully!!");
+            e.target.reset();
         })
 
         e.preventDefault();

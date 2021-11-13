@@ -1,7 +1,12 @@
 import { Container, Grid, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import Header from '../../Shared/Header/Header';
 import Drone from './../Drone/Drone';
+
+const bgColor = {
+    backgroundColor: 	'rgba(4, 4, 49, 0.897)'
+}
 
 const Drones = () => {
     const [drones,setDrones] = useState([]);
@@ -14,13 +19,13 @@ const Drones = () => {
    
     
     return (
-        <>
+        <Box style={bgColor}>
         <Header />
         <Container>
-            <Typography variant="h4" sx={{marginTop:3,color:'cadetBlue',marginBottom:3,textAlign:'center'}}>
-                Our Worderful Drones
-            </Typography>
-        <Grid container spacing={2}>
+        <Typography variant="h4" sx={{marginTop:4,marginBottom:4,color:'white',textAlign:'center',fontWeight:'bold'}}>
+          Our Wonderul Drones
+        </Typography>
+        <Grid container spacing={3}>
              {
                  drones.map(drone=> 
                     <Drone 
@@ -31,7 +36,7 @@ const Drones = () => {
              }
         </Grid>
         </Container>
-        </>
+        </Box>
     );
 };
 

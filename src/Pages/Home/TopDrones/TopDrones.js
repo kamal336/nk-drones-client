@@ -16,10 +16,10 @@ const TopDrones = () => {
 
     return (
         <Container>
-        <Typography variant="h4" sx={{marginTop:3,marginBottom:3,color:'blueviolet',textAlign:'center'}}>
-          Our Top Drones
+        <Typography variant="h4" sx={{marginTop:4,marginBottom:4,color:'white',textAlign:'center',fontWeight:'bold'}}>
+          Our Wonderul Drones
         </Typography>
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
              {
                  topDrones.map(topdrone=> 
                     <TopDrone 

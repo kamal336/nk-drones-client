@@ -5,9 +5,13 @@ import Footer from '../Footer/Footer';
 import Reviews from '../Reviews/Reviews';
 import TopDrones from '../TopDrones/TopDrones';
 
+const bgColor = {
+    backgroundColor: 	'rgba(4, 4, 49, 0.897)'
+}
+
 const Home = () => {
     return (
-        <div>
+        <div style={bgColor}>
          <Header />
          <Banner />
          <TopDrones />

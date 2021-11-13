@@ -15,8 +15,8 @@ const Header = () => {
 
       
     return (
-        <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+        <Box sx={{ flexGrow: 1, }}>
+      <AppBar position="static" sx={{background:'#3f51b5'}}>
         <Container>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

@@ -15,7 +15,7 @@ const Reviews = () => {
 
     return (
         <Container sx={{marginTop:3,}}>
-            <Typography variant="h4" sx={{textAlign:'center',marginBottom:3}}>
+            <Typography variant="h4" sx={{marginTop:4,marginBottom:4,color:'white',textAlign:'center',fontWeight:'bold'}}>
                 Customer Reviews
             </Typography>
             <Grid container spacing={2}>

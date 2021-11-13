@@ -12,6 +12,7 @@ import Register from './Pages/Authentication/Register/Register';
 import PrivateRoute from "./Pages/PrivateRoute/PrivateRoute";
 import PlaceOrder from "./Pages/PlaceOrder/PlaceOrder";
 import Dashboard from "./Pages/DashBoard/Dashboard/Dashboard";
+import DetailsDrone from './Pages/DetailsDrone/DetailsDrone';
 
 
 function App() {
@@ -31,9 +32,9 @@ function App() {
          <PrivateRoute path="/alldrones">
            <Drones />
          </PrivateRoute>
-         <PrivateRoute path="/placeorder">
-           <PlaceOrder />
-         </PrivateRoute>
+        <Route path="/detailsdrone/:id">
+          <DetailsDrone />
+        </Route>
          <Route path="/login">
            <Login />
          </Route>

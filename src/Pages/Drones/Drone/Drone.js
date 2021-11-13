@@ -20,18 +20,18 @@ const Drone = ({drone}) => {
                 alt="green iguana"
             />
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="h5" component="div" sx={{ color: 'primary.main' ,fontWeight:'bold'}}>
                 {title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary"> 
                {description}
                 </Typography>
-                <Typography variant="h6">
+                <Typography variant="h6" sx={{marginTop:2}}>
                     Price: {price} $
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Buy Now</Button>
+            <Button variant="contained">Buy Now</Button>
             </CardActions>
             </Card>
         </Grid>

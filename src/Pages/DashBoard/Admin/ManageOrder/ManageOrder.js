@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -53,8 +53,8 @@ const ManageOrder = () => {
     console.log(orders);
     return (
         <div>
-         <Typography variant="h4" sx={{textAlign:'center',color:'primary.main',marginTop:3,marginBottom:3}}>
-              Manage Orders
+        <Typography variant="h4" sx={{textAlign:'center',color:'primary.main',marginTop:3,marginBottom:3,fontWeight:'bold'}}>
+                Manage Orders
             </Typography>
             <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -66,6 +66,7 @@ const ManageOrder = () => {
             <StyledTableCell>Address</StyledTableCell>
             <StyledTableCell>Mobile</StyledTableCell>
             <StyledTableCell>Date</StyledTableCell>
+            <StyledTableCell>Delete User</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -87,6 +88,7 @@ const ManageOrder = () => {
               <StyledTableCell component="th" scope="row">
                 {row.date}
               </StyledTableCell>
+              <TableCell><Button variant="contained" sx={{background:"red"}}>Delete</Button></TableCell>
             </StyledTableRow>
           ))}
         </TableBody>
