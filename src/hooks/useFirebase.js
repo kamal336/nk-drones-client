@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import initialAthentication from "../Pages/Authentication/Firebase/initializeFirebse";
-import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword,onAuthStateChanged,signOut,signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider,updateProfile, createUserWithEmailAndPassword,onAuthStateChanged,signOut,signInWithEmailAndPassword } from "firebase/auth";
 
 initialAthentication();
 const auth = getAuth();
@@ -11,6 +11,7 @@ const useFirebase = () =>{
    const [user,setUser] = useState({});
    const [error,setError] = useState("");
    const [isLoading,setIsLoading] = useState(true);
+   const [admin,setAdmin] = useState(false);
 
 //    register with email and password 
 const registerUser = (email,password,name,history) =>{
@@ -20,14 +21,14 @@ const registerUser = (email,password,name,history) =>{
         setError('');
         const newUser = { email, displayName: name };
         setUser(newUser);
-        // // save user to the database
-        // saveUser(email, name, 'POST');
-        // // send name to firebase after creation
-        // updateProfile(auth.currentUser, {
-        //     displayName: name
-        // }).then(() => {
-        // }).catch((error) => {
-        // });
+        // save user to the database
+        saveUserDb(email, name, 'POST');
+        // send name to firebase after creation
+        updateProfile(auth.currentUser, {
+            displayName: name
+        }).then(() => {
+        }).catch((error) => {
+        });
         history.replace('/');
     })
     .catch((error) => {
@@ -44,6 +45,7 @@ const loginUser = (email, password, location, history) => {
             const destination = location?.state?.from || '/';
             history.replace(destination);
             setError('');
+          
         })
         .catch((error) => {
             setError(error.message);
@@ -55,7 +57,7 @@ const loginUser = (email, password, location, history) => {
 useEffect(() => {
     const unsubscribed = onAuthStateChanged(auth, (user) => {
         if (user) {
-            setUser(user);
+        setUser(user);
         } else {
             setUser({})
         }
@@ -64,25 +66,35 @@ useEffect(() => {
     return () => unsubscribed;
 }, [])
 
-// logout user 
+// set admin 
+useEffect(() => {
+    fetch(`https://desolate-stream-72668.herokuapp.com/users/${user.email}`)
+        .then(res => res.json())
+        .then(data => setAdmin(data.admin))
+}, [user.email])
 
-const logOut = () =>{
+// logout user 
+const logOut = (history) =>{
     signOut(auth)
     .then(()=>{
         console.log('successfully logout');
         setUser({});
+        history.replace('/')
     }).catch(error=>{
         setError(error.message)
     })
 }
 
 // google Login 
-   const googleLogin = () =>{
+   const googleLogin = (location,history) =>{
        setIsLoading(true)
        signInWithPopup(auth,googleProvider)
        .then(result=>{
            const user = result.user;
-            console.log(user);
+           saveUserDb(user.email, user.displayName, 'PUT');
+           const destination = location?.state?.from || '/';
+           history.replace(destination);
+           setError('');
        }).catch(error=>{
            setError(error.message);
        })
@@ -91,6 +103,21 @@ const logOut = () =>{
        })
 }
 
+// seve user to database 
+const saveUserDb = (email,displayName,method) =>{
+
+    const user = { email, displayName };
+        fetch('https://desolate-stream-72668.herokuapp.com/users', {
+            method: method,
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then()
+}
+
+
 return {
     user,
     isLoading,
@@ -98,7 +125,8 @@ return {
     googleLogin,
     registerUser,
     loginUser,
-    logOut
+    logOut,
+    admin
 }
 
 }

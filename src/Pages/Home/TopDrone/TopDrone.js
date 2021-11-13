@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid } from '@mui/material';
+import { Grid, Link } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -41,7 +41,9 @@ const TopDrone = ({topdrone}) => {
                 </Typography>
             </CardContent>
             <CardActions>
+                <Link to="/placeorder">
                 <Button onClick={handleOpen} size="small">Buy Now</Button>
+                </Link>
             </CardActions>
             <PlaceOrder 
             open={open}

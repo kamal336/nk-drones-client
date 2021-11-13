@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Container } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import { Link}  from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
@@ -11,6 +11,9 @@ import useAuth from '../../../hooks/useAuth';
 
 const Header = () => {
       const {user,logOut} = useAuth();
+     
+
+      
     return (
         <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -24,15 +27,19 @@ const Header = () => {
           </Link>
           <Link style={{textDecoration:'none',color:'white',marginRight:'10px'}} to="/alldrones">
            All Drones 
-          </Link>
+          </Link> 
+         {user?.email&& <Link style={{textDecoration:'none',color:'white',marginRight:'10px'}} to="/dashboard">
+           Dashboard
+          </Link>}
+
           {user?.email&&<Link style={{textDecoration:'none',color:'white',marginRight:'10px'}}>
            {user?.displayName}
           </Link>}
 
           {user?.email?
-          <Link onClick={logOut} style={{textDecoration:'none',color:'white'}}>
+          <Button onClick={logOut} style={{textDecoration:'none',color:'white'}}>
            Logout
-          </Link>:
+          </Button>:
           <Link style={{textDecoration:'none',color:'white'}} to="/login">
            Login
           </Link>}

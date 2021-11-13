@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import { TextField, Typography } from '@mui/material';
+import useAuth from './../../hooks/useAuth';
+import swal from 'sweetalert';
 
 const style = {
   position: 'absolute',
@@ -20,10 +22,12 @@ const style = {
 
 const PlaceOrder = ({open,handleClose,topdrone}) => {
   const {title,price} = topdrone;
+  const {user} = useAuth();
+  const date = new Date();
 
-    // const initialInfo = { patientName: user.displayName, email: user.email }
-    const [orderInfo,setOrderInfo] = React.useState({});
-
+    const initialInfo = { email: user.email }
+    const [orderInfo,setOrderInfo] = React.useState(initialInfo);
+ 
     const handleOnBlur = e =>{
         const field = e.target.name;
         const value = e.target.value;
@@ -33,21 +37,30 @@ const PlaceOrder = ({open,handleClose,topdrone}) => {
        
     }
     const handleSubmit = (e) =>{
-      const appointment = { ...orderInfo }
-          fetch("http://localhost:5000/orders",{
-            method: "POST",
-            headers:{
-              "content-type": "application.json"
-            },
-            body: JSON.stringify(appointment)
-          })
-          .then(res=> res.json())
-          .then(data=>{
-            if(data.insertedId){
-              alert("Place Order Successfully..")
-              handleClose();
-            }
-          })
+      const appoinment = { 
+        ...orderInfo,
+        productName: title,
+        productPrice: price,
+        date: date.toLocaleDateString()
+       }
+   
+           // send to the server
+        fetch('https://desolate-stream-72668.herokuapp.com/orders', {
+          method: 'POST',
+          headers: {
+              'content-type': 'application/json'
+          },
+          body: JSON.stringify(appoinment)
+      })
+          .then(res => res.json())
+          .then(data => {
+              if (data.insertedId) {
+
+                swal("Successfully!! Place Order");
+          
+                  handleClose();
+              }
+          });
           e.preventDefault();
     }
   
@@ -74,10 +87,9 @@ const PlaceOrder = ({open,handleClose,topdrone}) => {
           />
            <TextField
            sx={{width:"80%",marginTop:3}}
-           id="outlined-textarea"
-           name="name"
-           onBlur={handleOnBlur}
-            placeholder='Your name'
+           id="email"
+           name="email"
+           defaultValue={user?.email}
             multiline
           />
            <TextField

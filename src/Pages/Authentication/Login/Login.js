@@ -6,11 +6,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
-    const {loginUser,isLoading,user,googleLogin} = useAuth();
+    const {loginUser,isLoading,googleLogin} = useAuth();
     const location = useLocation();
     const history = useHistory();
     const [loginInfo,setLoginInfo] = useState({});
-
+    
     const handleChange = e =>{
       const value= e.target.value;
       const field= e.target.name;
@@ -25,6 +25,10 @@ const Login = () => {
         loginUser(loginInfo.email, loginInfo.password, location, history);
         console.log(loginInfo.email, loginInfo.password);
         e.preventDefault();
+    }
+
+    const googleLoginUser = () =>{
+        googleLogin(location,history)
     }
 
     return (
@@ -61,7 +65,7 @@ const Login = () => {
                        <br />
                         <Button type="submit"  variant="contained">Login</Button>
                     </form>
-                    <button onClick={googleLogin}>Google</button>
+                    <button onClick={googleLoginUser}>Google</button>
                  </Grid>
                  
                  <Grid item sm={12} md={6}>

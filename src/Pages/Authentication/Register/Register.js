@@ -1,6 +1,6 @@
 import { Container, TextField, Typography, Grid, Button } from '@mui/material';
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import Header from './../../Shared/Header/Header';
 import { useState } from 'react';
 import useAuth from '../../../hooks/useAuth';
@@ -9,6 +9,7 @@ const Register = () => {
 
     const {registerUser,googleLogin} = useAuth();
     const history = useHistory();
+    const location = useLocation();
     const [userInfo,setUserInfo] = useState({});
 
     const handleOnBlur = e =>{
@@ -25,10 +26,15 @@ const Register = () => {
             alert('Your password did not match');
             return
         }
-        console.log('hi',userInfo.email,userInfo.password,userInfo.name)
+    
         registerUser(userInfo.email,userInfo.password, userInfo.name, history);
         e.preventDefault();
     }
+
+    const googleLoginUser = () =>{
+        googleLogin(location,history)
+    }
+
     return (
         <>
         <Header />
@@ -79,7 +85,7 @@ const Register = () => {
                        </Link>
                         <Button type="submit" variant="contained">Regiter</Button>
                     </form>
-                    <button onClick={googleLogin}>Google</button>
+                    <button onClick={googleLoginUser}>Google</button>
                  </Grid>
                  
                  <Grid item sm={12} md={6}>
