@@ -24,7 +24,7 @@ const MyOrder = () => {
     },[user?.email])
     return (
         <Container>
-            <Typography variant="h4" sx={{textAlign:'center',color:'skyBlue',marginTop:3,marginBottom:3}}>
+            <Typography variant="h4" sx={{textAlign:'center',color:'primary.main',marginTop:3,marginBottom:3}}>
                 My Order
             </Typography>
             <TableContainer component={Paper}>

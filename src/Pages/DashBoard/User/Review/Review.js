@@ -6,18 +6,18 @@ import swal from 'sweetalert';
 const Review = () => {
 
     const {user} = useAuth();
-    const [message,setMessage] = useState('');
+    const [comment,setComment] = useState('');
     const email = user?.email;
     const handleOnBlur = e =>{
-        setMessage(e.target.value)
+        setComment(e.target.value)
        console.log(e.target.value);
     }
 
     const handleAdminSubmit = e =>{
-        console.log(message);
+        console.log(comment);
         // const user = {email};
         const review = {
-            message,
+            comment,
             email
         }
 
@@ -33,8 +33,8 @@ const Review = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.insertedId) {
-                 
-                  swal("Successfully!! Place Order");
+                  swal("Successfully!! Review product");
+                  e.target.reset();
                 }
             });
 
